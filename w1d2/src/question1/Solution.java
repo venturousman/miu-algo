@@ -1,11 +1,7 @@
 package question1;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.TreeMap;
 
 public class Solution {
@@ -81,16 +77,43 @@ public class Solution {
 		if (nums == null || nums.length < 3) {
 			throw new IllegalArgumentException("Array must contain at least three elements.");
 		}
-//		LinkedHashMap<Integer, Integer> lhm = new LinkedHashMap<>();
-////		for (int num : nums) {
-////			lhm.put(num, num);
-////		}
-//		for (int i = 0; i < nums.length; i++) {
-//			lhm.put(i, nums[i]);
-//		}
-//
-//		// Displaying the LinkedHashMap
-//		System.out.println("" + lhm);
+
+		PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+		for (int num : nums) {
+			pq.add(num);
+		}
+//		// Print the priority queue (not sorted order)
+//        System.out.println("PriorityQueue (internal heap order): " + pq);
+//        
+//        // Print in sorted order
+//        System.out.print("Sorted order: ");
+//        while (!pq.isEmpty()) {
+//            System.out.print(pq.poll() + " ");
+//        }
+		pq.poll(); // Retrieves and removes the head of this queue, or returns null if this queue
+					// is empty.
+		pq.poll();
+		int thirdLargest = pq.peek(); // Retrieves, but does not remove, the head of this queue, or returns null if
+										// this queue is empty.
+
+		return thirdLargest;
+	}
+
+	public static int findThirdLargest4(int[] nums) {
+		// Idea – Use an ordered dictionary.
+		if (nums == null || nums.length < 3) {
+			throw new IllegalArgumentException("Array must contain at least three elements.");
+		}
+
+		// Create a TreeMap of Strings (keys) and Integers (values)
+		TreeMap<Integer, Integer> map = new TreeMap<>();
+		
+		for (int num : nums) {
+			map.put(num, num);
+		}
+
+		// Displaying the TreeMap
+		System.out.println("TreeMap elements: " + map);
 		return 0;
 	}
 
@@ -99,11 +122,12 @@ public class Solution {
 //		int[] arr = { 7, 20, 18, 4, 21, 19, 5, 3 };
 //		int[] arr = { 5, 1, 2, 9, 7, 7, 3 };
 //		int[] arr = { 5, 1, 2, 6, 7, 7, 3 };
-//        int[] arr = {10, 20, 4, 45, 99, 87, 76};
+//      int[] arr = {10, 20, 4, 45, 99, 87, 76};
 
 		System.out.println(findThirdLargest1(arr));
 		System.out.println(findThirdLargest2(arr));
 		System.out.println(findThirdLargest3(arr));
+//		System.out.println(findThirdLargest4(arr));
 	}
 
 }
