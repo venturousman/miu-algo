@@ -1,0 +1,2 @@
+- moving a IntelliJ project, consider to delete .idea, .git folders
+- moving a Eclipse project, should delete .classpath, .project files
