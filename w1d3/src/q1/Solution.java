@@ -19,37 +19,72 @@ public class Solution {
 		return arr;
 	}
 
+//	private static int[][] SortedSquare2(int n, int start) {
+//		// diagonal
+//		int[][] arr = new int[n][n];
+//		boolean flip = false;
+//		
+//		// i + j == k
+//		// Print diagonals starting from the first row
+//		for (int col = 0; col < n; col++) {
+//	        int i = 0, j = col;
+//	        while (i < n && j >= 0) {
+//	            System.out.print(i + "," + j + "\t");
+//	            if (!flip) arr[i][j] = start++;
+//				else arr[j][i] = start++;
+//	            i++;
+//	            j--;
+//	        }
+//	        flip = !flip;
+//	        System.out.println();
+//	    }
+//		System.out.println();
+//		
+//		// Print diagonals starting from the last column of each row (except the first row)
+//	    for (int row = 1; row < n; row++) {
+//	        int i = row, j = n - 1;
+//	        while (i < n && j >= 0) {
+//	            System.out.print(i + "," + j + "\t");
+//				if (!flip) arr[i][j] = start++;
+//				else arr[j][i] = start++;
+//	            i++;
+//	            j--;
+//	        }
+//	        flip = !flip;
+//	        System.out.println();
+//	    }
+//
+//		return arr;
+//	}
+
 	private static int[][] SortedSquare2(int n, int start) {
 		// diagonal
 		int[][] arr = new int[n][n];
 		boolean flip = false;
 		
 		// i + j == k
-		// Print diagonals starting from the first row
-		for (int col = 0; col < n; col++) {
-	        int i = 0, j = col;
-	        while (i < n && j >= 0) {
-	            System.out.print(i + "," + j + "\t");
+		for (int k = 0; k < n; k++) {
+			for (int i = 0; i < n; i++) {
+				int j = k - i;
+				if (j < 0 || j >= n) continue;
+				System.out.print(i + "," + j + "\t");
 	            if (!flip) arr[i][j] = start++;
 				else arr[j][i] = start++;
-	            i++;
-	            j--;
-	        }
+			}
 	        flip = !flip;
 	        System.out.println();
 	    }
 		System.out.println();
 		
-		// Print diagonals starting from the last column of each row (except the first row)
-	    for (int row = 1; row < n; row++) {
-	        int i = row, j = n - 1;
-	        while (i < n && j >= 0) {
-	            System.out.print(i + "," + j + "\t");
+		// i + j = n - 1 + k
+	    for (int k = 1; k < n; k++) {
+	    	for (int i = 0; i < n; i++) {
+				int j = n - 1 + k - i;
+				if (j < 0 || j >= n) continue;
+				System.out.print(i + "," + j + "\t");
 				if (!flip) arr[i][j] = start++;
 				else arr[j][i] = start++;
-	            i++;
-	            j--;
-	        }
+	    	}
 	        flip = !flip;
 	        System.out.println();
 	    }
