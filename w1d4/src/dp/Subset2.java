@@ -39,8 +39,7 @@ public class Subset2 {
 					b[i][j] = b[i - 1][j]; // Don't include current element
 				} else {
 					String si = "{" + s[i] + "}";
-					String curr = b[i - 1][col].equals("{}") ? "" : b[i - 1][col].toString();
-					String include = curr + si;
+					String include = b[i - 1][col].equals("{}") ? si : b[i - 1][col] + si;
 					b[i][j] = b[i - 1][j] == null ? include : b[i - 1][j];
 					b[i][j] = b[i][j].replace("}{", ","); // for decoration
 				}

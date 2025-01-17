@@ -8,7 +8,7 @@ public class Subset3 {
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j <= k; j++) {
 //				if (arr[i][j])
-				System.out.print(arr[i][j] + "\t");
+				System.out.print(arr[i][j] + "\t\t");
 //				else
 //					System.out.print(" " + "\t");
 			}
@@ -39,15 +39,22 @@ public class Subset3 {
 					b[i][j] = b[i - 1][j]; // Don't include current element
 				} else {
 					String si = "{" + s[i] + "}";
-					String curr = b[i - 1][col].equals("{}") ? "" : b[i - 1][col].toString();
-					String include = curr + si;
-					b[i][j] = b[i - 1][j] == null ? include : b[i - 1][j] + "," + include; // all subsets
+					String include = si; // b[i - 1][col].equals("{}") ? si : b[i - 1][col] + si;
+					if (!b[i - 1][col].equals("{}")) {
+						var parts = b[i - 1][col].split(";");
+						// Add the string to each element
+						for (int m = 0; m < parts.length; m++) {
+							parts[m] += si;
+						}
+						include = String.join(";", parts);
+					}
+					b[i][j] = b[i - 1][j] == null ? include : b[i - 1][j] + ";" + include; // all subsets
 					b[i][j] = b[i][j].replace("}{", ","); // for decoration
 				}
 			}
 		}
 
-		print(n, k, b);
+//		print(n, k, b);
 		return b[n - 1][k];
 	}
 
