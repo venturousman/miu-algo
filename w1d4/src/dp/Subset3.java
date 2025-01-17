@@ -63,7 +63,7 @@ public class Subset3 {
 		s = new int[] { 2, 3, 5 };
 		k = 8;
 		System.out.println(dp1(s, k));
-		
+
 		s = new int[] { 3, 4, 7, 8 };
 		k = 15;
 		System.out.println(dp1(s, k));
