@@ -61,33 +61,39 @@ public class Solution {
 		// diagonal
 		int[][] arr = new int[n][n];
 		boolean flip = false;
-		
+
 		// i + j == k
 		for (int k = 0; k < n; k++) {
 			for (int i = 0; i < n; i++) {
 				int j = k - i;
-				if (j < 0 || j >= n) continue;
-				System.out.print(i + "," + j + "\t");
-	            if (!flip) arr[i][j] = start++;
-				else arr[j][i] = start++;
+				if (j < 0 || j >= n)
+					continue;
+//				System.out.print(i + "," + j + "\t");
+				if (!flip)
+					arr[i][j] = start++;
+				else
+					arr[j][i] = start++;
 			}
-	        flip = !flip;
-	        System.out.println();
-	    }
-		System.out.println();
-		
+			flip = !flip;
+//			System.out.println();
+		}
+//		System.out.println();
+
 		// i + j = n - 1 + k
-	    for (int k = 1; k < n; k++) {
-	    	for (int i = 0; i < n; i++) {
+		for (int k = 1; k < n; k++) {
+			for (int i = 0; i < n; i++) {
 				int j = n - 1 + k - i;
-				if (j < 0 || j >= n) continue;
-				System.out.print(i + "," + j + "\t");
-				if (!flip) arr[i][j] = start++;
-				else arr[j][i] = start++;
-	    	}
-	        flip = !flip;
-	        System.out.println();
-	    }
+				if (j < 0 || j >= n)
+					continue;
+//				System.out.print(i + "," + j + "\t");
+				if (!flip)
+					arr[i][j] = start++;
+				else
+					arr[j][i] = start++;
+			}
+			flip = !flip;
+//			System.out.println();
+		}
 
 		return arr;
 	}
@@ -112,6 +118,61 @@ public class Solution {
 			}
 			System.out.println();
 		}
+		System.out.println();
+	}
+
+	// a search algorithm without DAC
+	// if key is present in the sorted square M, print a pair of row & column,
+	// otherwise print "Not Found"
+	// e.g. M2, key 23, print (1,4); key 34, print "Not Found"
+	private static String searchSS(int[][] M, int key) {
+		int rows = M.length;
+		int cols = M[0].length;
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				if (M[i][j] == key) {
+					String message = "(" + i + "," + j + ")";
+					return message;
+				}
+			}
+		}
+
+		return "Not Found";
+	}
+
+	// Each row, each column is sorted in ascending order.
+	// **approach:
+	// - flatten the array: treat the 2D array as a 1D sorted array.
+	// + for an element at position index in a flattened array:
+	// + row = index / cols; col = index % cols
+	// - apply binary search
+	// use a staircase search or a recursive divide-and-conquer strategy
+	private static String DACsearchSS(int[][] M, int key) {
+		if (M == null || M.length == 0 || M[0].length == 0) {
+//            return false; // Handle edge cases
+			return "Not Found";
+		}
+
+		int rows = M.length;
+		int cols = M[0].length;
+
+		// Start at the top-right corner
+		int row = 0;
+		int col = cols - 1;
+
+		while (row < rows && col >= 0) {
+			if (M[row][col] == key) {
+//				return true; // found
+				String message = "(" + row + "," + col + ")";
+				return message;
+			} else if (M[row][col] > key) {
+				col--; // Move left
+			} else {
+				row++; // Move down
+			}
+		}
+
+		return "Not Found";
 	}
 
 	public static void main(String[] args) {
@@ -121,6 +182,37 @@ public class Solution {
 
 		int[][] m2 = SortedSquare2(n, 5);
 		print(n, m2);
+
+		int key = 23;
+		long startTime = System.nanoTime(); // empirical tool
+		String result = searchSS(m2, key);
+		long endTime = System.nanoTime();
+		long duration = endTime - startTime; // Time in nanoseconds
+		System.out.println("Search 23: " + result);
+		System.out.println("Execution time: " + duration + " nanoseconds");
+
+		startTime = System.nanoTime();
+		result = DACsearchSS(m2, key);
+		endTime = System.nanoTime();
+		duration = endTime - startTime;
+		System.out.println("DAC Search 23: " + result);
+		System.out.println("Execution time: " + duration + " nanoseconds");
+
+		System.out.println("----------");
+		key = 34;
+		startTime = System.nanoTime();
+		result = searchSS(m2, key);
+		endTime = System.nanoTime();
+		duration = endTime - startTime;
+		System.out.println("Search 34: " + result);
+		System.out.println("Execution time: " + duration + " nanoseconds");
+
+		startTime = System.nanoTime();
+		result = DACsearchSS(m2, key);
+		endTime = System.nanoTime();
+		duration = endTime - startTime;
+		System.out.println("DAC Search 34: " + result);
+		System.out.println("Execution time: " + duration + " nanoseconds");
 
 		int[][] m3 = SortedSquare3(n, 5);
 //		print(n, m3);
