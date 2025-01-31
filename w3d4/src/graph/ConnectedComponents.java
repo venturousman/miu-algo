@@ -80,6 +80,16 @@ public class ConnectedComponents {
 
 		System.out.println(Arrays.toString(findDFSComponents(a)));
 		System.out.println(Arrays.toString(findBFSComponents(a)));
+
+		int[][] b = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+				{ 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0 }, { 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0 },
+				{ 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0 }, { 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0 },
+				{ 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0 }, { 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0 },
+				{ 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+				{ 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0 }, };
+
+		System.out.println(Arrays.toString(findDFSComponents(b)));
+		System.out.println(Arrays.toString(findBFSComponents(b)));
 	}
 
 }
