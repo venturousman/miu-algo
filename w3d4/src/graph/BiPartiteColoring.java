@@ -60,9 +60,9 @@ public class BiPartiteColoring {
 		q.add(s);
 		while (!q.isEmpty()) {
 			int v = q.poll();
+			int nextColor = (color[v] + 1) % 2;
 			for (int w = 0; w < n; w++) {
 				if (a[v][w] > 0 && color[w] < 0) {
-					int nextColor = (color[v] + 1) % 2;
 					for (int u = 0; u < n; u++) {
 						if (a[w][u] > 0 && color[u] == nextColor) {
 							return color;

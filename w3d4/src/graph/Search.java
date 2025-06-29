@@ -22,8 +22,7 @@ public class Search {
 				}
 			}
 			if (w == -1) {
-				// cant find w, backtrack
-				st.pop();
+				st.pop(); // cant find w, backtrack
 			} else {
 				visited[w] = 1;
 				st.push(w);

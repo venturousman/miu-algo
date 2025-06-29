@@ -22,8 +22,7 @@ public class ConnectedComponents {
 				}
 			}
 			if (w == -1) {
-				// cant find w, backtrack
-				st.pop();
+				st.pop(); // cant find w, backtrack
 			} else {
 				c[w] = noComponent;
 				st.push(w);

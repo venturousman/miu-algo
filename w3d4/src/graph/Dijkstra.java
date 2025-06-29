@@ -5,26 +5,26 @@ import java.util.Arrays;
 public class Dijkstra {
 
 	// Greedy
-	private static void greedyDijkstra(int[][] w, int s, int[] dist, int[] check, int[] trace) {
-		// check[i] = 2: visited; check[i] = 1: visiting; check[i] = 0: not visited
+	private static void greedyDijkstra(int[][] w, int s, int[] dist, int[] visited, int[] trace) {
 		int n = w.length;
+		int min = Integer.MAX_VALUE;
 		int u = s;
+		dist[u] = 0; // coz all dist is Integer.MAX_VALUE
 		while (u >= 0) {
-			check[u] = 2;
+			visited[u] = 1;
 			for (int v = 0; v < n; v++) {
 				if (w[u][v] == 0)
 					continue;
-				if (check[v] == 0 || (check[v] == 1 && dist[v] > dist[u] + w[u][v])) {
+				if (visited[v] == 0 && dist[v] > dist[u] + w[u][v]) {
 					dist[v] = dist[u] + w[u][v];
 					trace[v] = u;
-					check[v] = 1; // visiting
 				}
 			}
 
 			u = -1;
-			int min = Integer.MAX_VALUE;
+			min = Integer.MAX_VALUE;
 			for (int v = 0; v < n; v++) {
-				if (check[v] == 1 && dist[v] < min) {
+				if (visited[v] == 0 && dist[v] < min) {
 					min = dist[v];
 					u = v;
 				}
@@ -41,17 +41,18 @@ public class Dijkstra {
 				{ 0, 34, 0, 0, 0, 24, 25, 0, 19 }, { 0, 0, 0, 30, 0, 0, 21, 19, 0 }, };
 
 		int n = w.length;
-		int[] dist = new int[n]; // all 0
-		int[] check = new int[n]; // all 0
+		int[] dist = new int[n]; // all max
+		int[] visited = new int[n]; // all 0
 		int[] trace = new int[n]; // all -1
 
+		Arrays.fill(dist, Integer.MAX_VALUE);
 		Arrays.fill(trace, -1); // Fill all elements with -1
 
 		int s = 0; // A
-		greedyDijkstra(w, s, dist, check, trace);
+		greedyDijkstra(w, s, dist, visited, trace);
 
 		System.out.println(Arrays.toString(dist));
-		System.out.println(Arrays.toString(check));
+		System.out.println(Arrays.toString(visited));
 		System.out.println(Arrays.toString(trace));
 
 	}
